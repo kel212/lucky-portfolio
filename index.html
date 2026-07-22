@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lucky Okolobe — Finance, Bookkeeping & Compliance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F3F5F0;
+    --paper-2:#EAEEE5;
+    --ink:#182620;
+    --ink-soft:#4B584F;
+    --rule:#C7D0C4;
+    --rule-strong:#9FAC98;
+    --credit:#1F5C46;
+    --credit-bg:#E3EEE6;
+    --debit:#8C3B2E;
+    --debit-bg:#F4E5DF;
+    --gold:#9C7A2E;
+    --gold-bg:#F1E7CE;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans',sans-serif;
+    line-height:1.6;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:0 28px;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+  h1,h2,h3{font-family:'Fraunces',serif;font-weight:500;margin:0;color:var(--ink);}
+  a{color:var(--credit);}
+
+  /* ---------- Header / Hero ---------- */
+  header{
+    padding:64px 0 40px;
+    border-bottom:1.5px solid var(--rule-strong);
+  }
+  .hero-top{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap;}
+  .name{font-size:44px;line-height:1.05;}
+  .role{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:14.5px;
+    color:var(--credit);
+    margin-top:10px;
+  }
+  .stamp{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    border:1.5px solid var(--gold);
+    color:var(--gold);
+    padding:8px 14px;
+    border-radius:2px;
+    white-space:nowrap;
+    transform:rotate(-2deg);
+  }
+  .lede{
+    max-width:640px;
+    margin-top:22px;
+    font-size:16.5px;
+    color:var(--ink-soft);
+  }
+
+  /* ---------- Trial Balance strip (signature element) ---------- */
+  .tb{
+    margin-top:36px;
+    border:1.5px solid var(--rule-strong);
+    background:var(--paper-2);
+    border-radius:3px;
+    overflow:hidden;
+  }
+  .tb-head{
+    display:flex;
+    justify-content:space-between;
+    padding:10px 18px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    border-bottom:1px solid var(--rule);
+  }
+  .tb-rows{display:grid;grid-template-columns:1fr 1fr;}
+  .tb-col{padding:16px 18px;}
+  .tb-col + .tb-col{border-left:1px solid var(--rule);}
+  .tb-row{
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    padding:9px 0;
+    border-bottom:1px dashed var(--rule);
+    font-size:14px;
+  }
+  .tb-row:last-child{border-bottom:none;}
+  .tb-row .amt{font-family:'IBM Plex Mono',monospace;font-weight:500;white-space:nowrap;}
+  .col-debit .amt{color:var(--debit);}
+  .col-credit .amt{color:var(--credit);}
+  .tb-foot{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px 18px;
+    background:var(--credit-bg);
+    border-top:1.5px solid var(--rule-strong);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    color:var(--credit);
+    letter-spacing:.03em;
+  }
+
+  /* ---------- Sections ---------- */
+  section{padding:48px 0;border-bottom:1px solid var(--rule);}
+  section:last-of-type{border-bottom:none;}
+  .sec-label{display:flex;align-items:baseline;gap:14px;margin-bottom:26px;}
+  .sec-label .num{font-family:'IBM Plex Mono',monospace;color:var(--gold);font-size:14px;}
+  .sec-label h2{font-size:24px;}
+
+  /* Journal-entry experience blocks */
+  .entry{margin-bottom:32px;}
+  .entry:last-child{margin-bottom:0;}
+  .entry-head{
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--rule);
+    margin-bottom:12px;
+  }
+  .entry-role{font-size:17px;font-weight:600;font-family:'IBM Plex Sans',sans-serif;}
+  .entry-org{color:var(--ink-soft);font-size:14.5px;}
+  .entry-date{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    white-space:nowrap;
+  }
+  .entry ul{margin:0;padding-left:20px;}
+  .entry li{margin-bottom:7px;font-size:14.5px;color:var(--ink-soft);}
+  .entry li::marker{color:var(--gold);}
+  .entry li b{color:var(--ink);font-weight:600;}
+
+  /* Chart of accounts (skills) */
+  .coa{display:grid;grid-template-columns:repeat(2,1fr);gap:24px 32px;}
+  .coa-group h3{font-size:14px;font-family:'IBM Plex Mono',monospace;font-weight:500;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;}
+  .coa-group ul{list-style:none;margin:0;padding:0;}
+  .coa-group li{
+    display:flex;
+    justify-content:space-between;
+    padding:6px 0;
+    border-bottom:1px dashed var(--rule);
+    font-size:14.5px;
+  }
+  .coa-group li:last-child{border-bottom:none;}
+  .coa-tag{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px;
+    color:var(--credit);
+    background:var(--credit-bg);
+    padding:2px 7px;
+    border-radius:2px;
+    white-space:nowrap;
+  }
+
+  /* Case studies */
+  .case{
+    display:grid;
+    grid-template-columns:110px 1fr;
+    gap:20px;
+    padding:18px 0;
+    border-bottom:1px solid var(--rule);
+  }
+  .case:last-child{border-bottom:none;}
+  .case-tag{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    color:var(--debit);
+    background:var(--debit-bg);
+    padding:4px 8px;
+    border-radius:2px;
+    height:fit-content;
+  }
+  .case h3{font-size:16px;margin-bottom:6px;}
+  .case p{margin:0;font-size:14.5px;color:var(--ink-soft);}
+
+  /* Education */
+  .edu-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed var(--rule);font-size:14.5px;}
+  .edu-row:last-child{border-bottom:none;}
+  .edu-row span:last-child{color:var(--ink-soft);font-family:'IBM Plex Mono',monospace;font-size:12.5px;}
+
+  /* Footer / contact */
+  footer{padding:48px 0 64px;}
+  .contact-card{
+    border:1.5px solid var(--rule-strong);
+    border-radius:3px;
+    padding:28px 28px 24px;
+    background:var(--paper-2);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:20px;
+  }
+  .contact-card h2{font-size:22px;margin-bottom:8px;}
+  .contact-card p{margin:0;color:var(--ink-soft);font-size:14.5px;max-width:420px;}
+  .contact-links{display:flex;flex-direction:column;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:13.5px;text-align:right;}
+  .seal{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    text-align:center;
+    margin-top:36px;
+  }
+
+  @media (max-width:640px){
+    .name{font-size:34px;}
+    .tb-rows{grid-template-columns:1fr;}
+    .tb-col + .tb-col{border-left:none;border-top:1px solid var(--rule);}
+    .coa{grid-template-columns:1fr;}
+    .case{grid-template-columns:1fr;}
+    .contact-card{flex-direction:column;align-items:flex-start;}
+    .contact-links{text-align:left;}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="hero-top">
+      <div>
+        <p class="eyebrow">Finance · Bookkeeping · Statutory Compliance · HR Operations</p>
+        <h1 class="name">Lucky Okolobe</h1>
+        <p class="role">Clinic Administrator (Finance &amp; HR) — Glory Wellness &amp; Regenerative Centre / GloBioStem Ltd, Lagos</p>
+      </div>
+      <div class="stamp">Reconciled ✓</div>
+    </div>
+    <p class="lede">I run finance and HR operations for two related entities out of one office — QuickBooks bookkeeping, payroll, statutory filings, vendor management, and staff administration. My work is judged by whether the books tie out and the filings are on time, and they consistently do.</p>
+
+    <div class="tb">
+      <div class="tb-head"><span>Trial balance — career to date</span><span>All figures reconciled</span></div>
+      <div class="tb-rows">
+        <div class="tb-col col-debit">
+          <div class="tb-row"><span>Entities under one bookkeeping system</span><span class="amt">2</span></div>
+          <div class="tb-row"><span>Audit adjustments traced &amp; resolved</span><span class="amt">13</span></div>
+          <div class="tb-row"><span>Statutory regimes managed (FIRS, NRS, PAYE, WHT, VAT)</span><span class="amt">5</span></div>
+        </div>
+        <div class="tb-col col-credit">
+          <div class="tb-row"><span>Audited financials submitted, FY2025</span><span class="amt">On time</span></div>
+          <div class="tb-row"><span>Members' Equity discrepancy, FY2024</span><span class="amt">Closed</span></div>
+          <div class="tb-row"><span>Cash book workbook, monthly sheets built</span><span class="amt">13</span></div>
+        </div>
+      </div>
+      <div class="tb-foot"><span>Dr = scope of the work</span><span>Cr = outcome delivered</span></div>
+    </div>
+  </header>
+
+  <section id="summary">
+    <div class="sec-label"><span class="num">01</span><h2>Summary</h2></div>
+    <p style="max-width:680px;color:var(--ink-soft);font-size:15px;">
+      Accounting-trained finance professional operating as a combined CFO/HR lead for a healthcare and biotech group in Lagos.
+      Day to day, that means QuickBooks Desktop bookkeeping across two entities, payroll and staff HR administration, and
+      statutory compliance with FIRS/NRS, PAYE, Withholding Tax, VAT, and corporate tax. Recent work includes leading a
+      forensic investigation that traced and closed a full year's Members' Equity discrepancy, and coordinating the 2025
+      audited financial statements through to CEO sign-off. Currently taking on freelance bookkeeping work and looking
+      for a remote bookkeeping, accounting, or internal control role.
+    </p>
+  </section>
+
+  <section id="experience">
+    <div class="sec-label"><span class="num">02</span><h2>Experience</h2></div>
+
+    <div class="entry">
+      <div class="entry-head">
+        <div>
+          <div class="entry-role">Clinic Administrator — Finance, HR &amp; Operations</div>
+          <div class="entry-org">Glory Wellness &amp; Regenerative Centre Ltd / GloBioStem Limited, Lagos</div>
+        </div>
+        <div class="entry-date">Current</div>
+      </div>
+      <ul>
+        <li><b>Bookkeeping:</b> Maintain QuickBooks Desktop records for two related entities, including monthly reconciliations and depreciation/PP&amp;E treatment.</li>
+        <li><b>Statutory compliance:</b> Manage FIRS/NRS filings, VAT returns, corporate tax coordination with external consultants, and PAYE/Withholding Tax registration with FCT-IRS.</li>
+        <li><b>Reporting:</b> Prepared and submitted the 2025 audited financial statements for both entities; authored a CEO-facing memo on the group's tax position covering income tax liability, allowable deductions, and capital allowances.</li>
+        <li><b>Investigation:</b> Led a forensic review of a Members' Equity discrepancy for FY2024, tracing 13 audit adjustments and producing a formal investigation memo.</li>
+        <li><b>HR &amp; payroll:</b> Handle staff confirmations, salary adjustments, leave approvals, and misconduct cases; draft compliant policy language under the Nigerian Labour Act.</li>
+        <li><b>Vendor management:</b> Own vendor and contractor correspondence, including service approvals and personnel changes.</li>
+      </ul>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head">
+        <div>
+          <div class="entry-role">Freelance Bookkeeper</div>
+          <div class="entry-org">Independent</div>
+        </div>
+        <div class="entry-date">Ongoing</div>
+      </div>
+      <ul>
+        <li>Built a 13-sheet monthly cash book workbook in Excel from raw Zenith Bank statement data, with categorized transactions and an annual summary.</li>
+        <li>Support small-business clients with reconciliation, bookkeeping cleanup, and financial reporting.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="sec-label"><span class="num">03</span><h2>Chart of accounts</h2></div>
+    <div class="coa">
+      <div class="coa-group">
+        <h3>Bookkeeping &amp; systems</h3>
+        <ul>
+          <li>QuickBooks Desktop <span class="coa-tag">daily use</span></li>
+          <li>Multi-entity reconciliation <span class="coa-tag">core</span></li>
+          <li>Depreciation &amp; PP&amp;E treatment <span class="coa-tag">core</span></li>
+          <li>Excel financial modeling <span class="coa-tag">advanced</span></li>
+        </ul>
+      </div>
+      <div class="coa-group">
+        <h3>Statutory compliance</h3>
+        <ul>
+          <li>FIRS / NRS filings <span class="coa-tag">core</span></li>
+          <li>PAYE &amp; Withholding Tax <span class="coa-tag">core</span></li>
+          <li>VAT returns <span class="coa-tag">core</span></li>
+          <li>Corporate tax coordination <span class="coa-tag">core</span></li>
+        </ul>
+      </div>
+      <div class="coa-group">
+        <h3>HR &amp; payroll</h3>
+        <ul>
+          <li>Payroll administration <span class="coa-tag">core</span></li>
+          <li>Nigerian Labour Act policy <span class="coa-tag">applied</span></li>
+          <li>Staff correspondence &amp; casework <span class="coa-tag">core</span></li>
+        </ul>
+      </div>
+      <div class="coa-group">
+        <h3>Beyond the ledger</h3>
+        <ul>
+          <li>Vendor &amp; contractor management <span class="coa-tag">core</span></li>
+          <li>Professional document drafting <span class="coa-tag">core</span></li>
+          <li>Git, GitHub, React <span class="coa-tag">learning</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="sec-label"><span class="num">04</span><h2>Selected work</h2></div>
+
+    <div class="case">
+      <span class="case-tag">Investigation</span>
+      <div>
+        <h3>Members' Equity discrepancy, FY2024</h3>
+        <p>Traced a full-year discrepancy in Members' Equity through the general ledger, identifying and correcting 13 audit adjustments across income tax account classifications. Delivered as a formal investigation memo to leadership.</p>
+      </div>
+    </div>
+
+    <div class="case">
+      <span class="case-tag">Reporting</span>
+      <div>
+        <h3>Zenith Bank cash book automation</h3>
+        <p>Converted a raw monthly bank statement into a 13-sheet Excel workbook — one tab per month plus an annual summary — with transactions categorized for management reporting.</p>
+      </div>
+    </div>
+
+    <div class="case">
+      <span class="case-tag">Compliance</span>
+      <div>
+        <h3>2025 group tax position memo</h3>
+        <p>Prepared a CEO-facing memo covering income tax liability, allowable deductions, capital allowances, and the transition to the Ref360/NRS filing system.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="sec-label"><span class="num">05</span><h2>Education</h2></div>
+    <div class="edu-row"><span>B.Sc. Accounting</span><span>Nigeria</span></div>
+    <div class="edu-row"><span>Continued professional development — Nigerian statutory compliance, QuickBooks Desktop</span><span>Ongoing</span></div>
+  </section>
+
+  <footer>
+    <div class="contact-card">
+      <div>
+        <h2>Let's talk numbers</h2>
+        <p>Open to remote bookkeeping, accounting, and internal control roles. Available for freelance engagements alongside current work.</p>
+      </div>
+      <div class="contact-links">
+        <span>luckyokolobe212@gmail.com</span>
+        <span>+2348060069296</span>
+        <span>https://www.linkedin.com/in/lucky-okolobe/
+</span>
+        <span>Lagos, Nigeria</span>
+      </div>
+    </div>
+    <p class="seal">Books balanced · Filings current · Available for remote work</p>
+  </footer>
+</div>
+
+</body>
+</html>
